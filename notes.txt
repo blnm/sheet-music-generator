@@ -1,0 +1,20 @@
+current:
+ - has frame of incorrect size, picks largest freq of frame and outputs
+ 
+LEFT TO DO
+ - map to notes, exclude adjacent freqencies    | DONE
+ - pick only the frequency closest to the note  | DONE
+ - proper frame size                            | DONE - not final but it's adjustable and I understand the core concept now
+    - need to pick "resolution", a time (i.e. 10 ms)
+    - smaller = better for time accuracy, larger = better for frequency
+    - don't need super accurate results for either so larger = better because it's fasters
+    - don't need to be super accur
+ - OVERLAPPING FRAMES                           |
+ - multiple notes, but smart                    | DONE - but I'm not smart so it isn't either
+
+
+
+ISSUES
+ - sloooooooowwwwwwwwwwwwwwwwwwwwwwwwwwww
+ - Can output too many notes - got over 30 in one instance. I think it's probably harmonics or a sustain pedal... Just needs more tuning of the mean pick_best... algo
+ - always outputs C0...? or A0...? pretty sure the song doesn't play the lowest possible note(s) that much...? low i so probably bad tuning
