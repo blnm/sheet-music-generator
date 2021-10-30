@@ -1,0 +1,42 @@
+import notes_and_freqs
+import utils
+
+class Note:
+    def __init__(self, freq: float, intensity: float):
+        self.freq = freq        # copy frequency and intensity directly
+        self.int = intensity
+
+        # map to a note - note that this doesn't care about FFT false positives since we don't have access to adjacent frequencies
+        # this just picks the closest note. In the Frame class we pick the note that's closest to the given note
+        self.note = notes_and_freqs.get_closest_note_for_freq(self.freq)
+
+    def __str__(self):
+        return self.note + " f=(" + str(utils.f2(self.freq)) + "Hz," + " i=" + str(utils.f2(self.int)) + ")"
+        #return self.note # short form that might get used later
+
+
+class Frame:
+    def __init__(self):
+        self.NoteList = []
+
+    def __str__(self):
+        output_str = ""
+        for note in self.NoteList:
+            output_str += note.__str__() + ",\t"
+        return output_str
+
+    def Add(self, note: Note):
+        for i in range(0, len(self.NoteList)):
+            previous_note = self.NoteList[i]
+            if note.note == previous_note.note:
+                if notes_and_freqs.get_distance_from_note(note.freq, note.note) < notes_and_freqs.get_distance_from_note(previous_note.freq, previous_note.note):
+                    self.NoteList[i] = note
+                return
+               
+                # very close to a previously recorded note
+                # TODO - pick the one closest to the note's ideal frequency and pick that. *should* have the higher int but I'm not sure
+
+        self.NoteList.append(note)
+
+
+
